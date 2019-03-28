@@ -67,7 +67,7 @@ As with all software, there is a chance that a smart contract may be exploited. 
         function () public payable {} // collect ether
 
         function withdrawAll(address _recipient) public {
-            require(tx.origin == owner);
+            require(msg.sender == owner);
             _recipient.transfer(this.balance);
         }
     }
