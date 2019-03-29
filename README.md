@@ -61,6 +61,7 @@ As with all software, there is a chance that a smart contract may be exploited. 
 version:0.4.23+commit.124ca40d.
 ```
 You might see a few warnings, but that's okay, the compiler should still compile the code properly. 
+
 6. Next, we will deploy the `Phishable` contract. We can do this by clicking on the "Run" tab next to the "Compile" tab on the top right side of the screen. Make sure the run tab has the following settings:
 * Environment: Javascript VM
 * Account: (this varies, just make sure it's consistent with the deployment address)
