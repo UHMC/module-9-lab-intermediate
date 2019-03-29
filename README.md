@@ -68,10 +68,15 @@ You might see a few warnings, but that's okay, the compiler should still compile
 * Value: 10 Ether
 * Deploy: (same as account address)  
 ![Deploying Phishable.sol](deploy1.PNG)
-*In the Remix logs, you should see something like this:  
+
+* In the Remix logs, you should see something like this: 
+ 
 ![Successful deployment](successful_deployment1.PNG)  
-*On the right hand side of the screen there should be an area that looks like this:  
+* On the right hand side of the screen there should be an area that looks like this:  
+
 ![Contract in memory](memory1.PNG)  
+
+
 Now, assume you are the owner of Phishable, but you see this coming before you deploy; how would you fix it?
 7. We can prevent an attack like this (using tx.origin for authentication purposes) by checking that the sender is the owner instead. In the `Phishable.sol` contract, change the line `require(tx.origin == owner);` to `require(msg.sender == owner);`. Now, when `AttackContract` is paid an amount by the owner of `Phishable` and calls `Phishable`’s `withdrawAll` function, the funds will not be transferred to the attacker’s address, since they are not the owner. The code for `Phishable` should look like this:
     _Phisable.sol_
