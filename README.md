@@ -18,7 +18,7 @@ As with all software, there is a chance that a smart contract may be exploited. 
 ## Assignment Instructions
 1. In Solidity, there is a global variable called `tx.origin`, which contains the address of the account that originally sent the call or the transaction. In this lab, we will explore why using `tx.origin` as a form of authentication can lead to exploitation.
 2. First, we begin by creating a contract with a simple purpose such as temporarily holding Ether for the owner (just as legitimate contracts in use hold Ether to enable various functions). Copy the following code into [Remix]:  
-    _Phishable.sol_
+    [_Phishable.sol_][Phishable.sol]
     ```solidity
     contract Phishable {
         address public owner;
@@ -35,7 +35,7 @@ As with all software, there is a chance that a smart contract may be exploited. 
     }
     ```
 3. We then create another contract to attack `Phishable.sol`. In a new document, create `AttackContract.sol`:  
-    _AttackContract.sol_
+    [_AttackContract.sol_][AttackContract.sol]
     ```solidity
     import "browser/Phishable.sol";
 
@@ -85,10 +85,10 @@ version:0.4.23+commit.124ca40d.
 
 Click on "Start to compile." Again, you should see some warnings, but the code should compile successfully. Now, assume you are the owner of Phishable, but you see this coming before you deploy; how would you fix it?
 
-8. We can prevent an attack like this (using tx.origin for authentication purposes) by checking that the sender is the owner instead. In the `Phishable.sol` contract, change the line `require(tx.origin == owner);` to `require(msg.sender == owner);`. Now, when `AttackContract` is paid an amount by the owner of `Phishable` and calls `Phishable`’s `withdrawAll` function, the funds will not be transferred to the attacker’s address, since they are not the owner. The code for `Phishable` should look like this:  
-    _Phishable.sol_
+8. We can prevent an attack like this (using tx.origin for authentication purposes) by checking that the sender is the owner instead. In the `Phishable.sol` contract, change the line `require(tx.origin == owner);` to `require(msg.sender == owner);`. Now, when `AttackContract` is paid an amount by the owner of `UnPhishable` and calls `UnPhishable`’s `withdrawAll` function, the funds will not be transferred to the attacker’s address, since they are not the owner. We'll call this updated version `UnPhishable`. The code should look like this:  
+    [_UnPhishable.sol_][UnPhishable.sol]
     ```solidity
-    contract Phishable {
+    contract UnPhishable {
         address public owner;
         constructor (address _owner) {
             owner = _owner;
@@ -110,3 +110,6 @@ Saxon Knight
 https://github.com/ethereumbook/ethereumbook  
 
 [Remix]: https://remix.ethereum.org/
+[Phishable.sol]: https://github.com/UHMC/module-9-lab-intermediate/blob/master/Phishable.sol
+[AttackContract.sol]: https://github.com/UHMC/module-9-lab-intermediate/blob/master/AttackContract.sol
+[UnPhishable.sol]: https://github.com/UHMC/module-9-lab-intermediate/blob/master/UnPhishable.sol
