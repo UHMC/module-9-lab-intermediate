@@ -76,9 +76,16 @@ You might see a few warnings, but that's okay, the compiler should still compile
 
 ![Contract in memory](memory1.PNG)  
 
+7. Now that the `Phishable.sol` contract is loaded onto memory, we need to deploy the attacker's `AttackContract.sol` as well to see the vulnerability in action. Click on the `browser/AttackContract.sol` to make it active then click on "Compile." The compiler version should be the same as earlier, but in case it isn't, use the same one:
+* The version of the compiler should be 
+```
+version:0.4.23+commit.124ca40d.
+```
+
+Click on "Start to compile." Again, you should see some warnings, but the code should compile successfully.
 
 Now, assume you are the owner of Phishable, but you see this coming before you deploy; how would you fix it?
-7. We can prevent an attack like this (using tx.origin for authentication purposes) by checking that the sender is the owner instead. In the `Phishable.sol` contract, change the line `require(tx.origin == owner);` to `require(msg.sender == owner);`. Now, when `AttackContract` is paid an amount by the owner of `Phishable` and calls `Phishable`’s `withdrawAll` function, the funds will not be transferred to the attacker’s address, since they are not the owner. The code for `Phishable` should look like this:
+8. We can prevent an attack like this (using tx.origin for authentication purposes) by checking that the sender is the owner instead. In the `Phishable.sol` contract, change the line `require(tx.origin == owner);` to `require(msg.sender == owner);`. Now, when `AttackContract` is paid an amount by the owner of `Phishable` and calls `Phishable`’s `withdrawAll` function, the funds will not be transferred to the attacker’s address, since they are not the owner. The code for `Phishable` should look like this:
     _Phisable.sol_
     ```solidity
     contract Phishable {
